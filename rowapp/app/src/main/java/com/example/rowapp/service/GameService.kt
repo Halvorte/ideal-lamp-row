@@ -6,7 +6,6 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.rowapp.App
-import com.example.rowapp.App.Companion.context
 import com.example.rowapp.R
 import com.example.rowapp.dataClasses.GameState
 import com.google.gson.Gson
@@ -16,6 +15,7 @@ import org.json.JSONObject
 typealias GameServiceCallback = (state: Game?, errorCode: Int?) -> Unit
 
 object GameService {
+
 
     val context = App.context
 

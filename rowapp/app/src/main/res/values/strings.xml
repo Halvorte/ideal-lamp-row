@@ -3,7 +3,7 @@
 
     <string name="protocol">https://</string>
     <string name="domain">generic-game-service.herokuapp.com</string>
-    <string name="base_path">Game</string>
+    <string name="base_path">/Game</string>
     <string name="create_game_path">/</string>
     <string name="join_game_path">/%1s/join</string>
     <string name="poll_game_path">/%1s/poll</string>
