@@ -1,16 +1,18 @@
 package com.example.rowapp
 
 import android.app.Application
-import android.content.Context
 
-class App:Application() {
+class App : Application() {
 
-    companion object{
-        lateinit var context: App private set
-    }
 
-    override fun onCreate(){
+
+    override fun onCreate() {
         super.onCreate()
         context = this
+    }
+    
+    companion object{
+        //lateinit var context: App private set
+        lateinit var context: App private set
     }
 }

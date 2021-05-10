@@ -19,4 +19,42 @@ object GameManager {
             }
         }
     }
+
+    fun joinGame(player: String, gameId:String){
+        GameService.joinGame(player, gameId) {  game: Game?, err: Int? ->
+            if (err != null){
+                print(err)
+
+            } else {
+                print(err)
+                //var tmp = game?.players
+            }
+        }
+
+    }
+
+    fun updateGame(gameId: String, gameState: GameState){
+        GameService.updateGame(gameId, gameState){  game: Game?, err: Int? ->
+            if (err != null){
+                print(err)
+
+            } else {
+                print(err)
+                //var tmp = game?.players
+            }
+        }
+    }
+
+    fun pollGame(gameId: String){
+        GameService.pollGame(gameId){  game: Game?, err: Int? ->
+            if (err != null){
+                print(err)
+
+            } else {
+                print(err)
+                //var tmp = game?.players
+            }
+        }
+    }
+
 }
