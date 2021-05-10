@@ -15,7 +15,7 @@ object GameManager {
             if (err != null){
                 // What is the error code
             } else{
-                // we have a game. what to do..
+                // we have a game. what to do.. Start a new activity with the game id in the top.
             }
         }
     }
@@ -23,11 +23,12 @@ object GameManager {
     fun joinGame(player: String, gameId:String){
         GameService.joinGame(player, gameId) {  game: Game?, err: Int? ->
             if (err != null){
-                print(err)
+                //print(err)
 
             } else {
-                print(err)
-                //var tmp = game?.players
+                //print(err)
+                // Start new activity with the game
+
             }
         }
 
