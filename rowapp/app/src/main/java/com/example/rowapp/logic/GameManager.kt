@@ -15,6 +15,7 @@ object GameManager {
     var players:MutableList<String>? = null
     var state:GameState? = null
     var gameId:String? = null
+    var twoPlayers:Boolean = false
 
     private val StartingGameState: GameState = mutableListOf(mutableListOf(0, 0, 0), mutableListOf(0, 0, 0), mutableListOf(0, 0, 0))
 
@@ -43,6 +44,8 @@ object GameManager {
 
             } else {
                 gameId = game?.gameId
+                players = game?.players
+
                 // Start new activity with the game
                 val intent = Intent(context, GameActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra(EXTRA_MESSAGE, gameId)
@@ -60,7 +63,7 @@ object GameManager {
 
             } else {
                 print(err)
-                //var tmp = game?.players
+                state = game?.state
             }
         }
     }
@@ -69,12 +72,14 @@ object GameManager {
         GameService.pollGame(gameId){ game: Game?, err: Int? ->
             if (err != null){
                 print(err)
-                players = game?.players
-                state = game?.state
+                twoPlayers = false
 
             } else {
                 print(err)
-                //var tmp = game?.players
+
+                players = game?.players
+                state = game?.state
+                twoPlayers = true
             }
         }
     }

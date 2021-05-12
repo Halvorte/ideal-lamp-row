@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         //GameManager.updateGame("3t3lc", mutableListOf(mutableListOf(0,0,0), mutableListOf(0,"X",0), mutableListOf(0,0,0)))
 
-        //GameManager.pollGame("3t3lc")
+        //GameManager.pollGame("o0fxt")
 
         // Function for new game dialog box
         newGameDialogbox()

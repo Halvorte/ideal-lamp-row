@@ -14,7 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Rowapp"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.GameActivity"></activity>
+        <activity android:name=".ui.GameActivity" android:parentActivityName=".ui.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.MainActivity"/>
+        </activity>
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
