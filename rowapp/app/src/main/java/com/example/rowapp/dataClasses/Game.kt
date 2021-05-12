@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 
-typealias GameState = @RawValue List<List<Any>>
+typealias GameState = @RawValue MutableList<MutableList<Any>>
 
 @Parcelize
 data class Game (val players:MutableList<String>, val gameId:String, val state:GameState): Parcelable

@@ -14,8 +14,6 @@ import com.example.rowapp.R
 import com.example.rowapp.databinding.ActivityMainBinding
 import com.example.rowapp.logic.GameManager
 
-const val EXTRA_GAME_INFO = "com.example.rowapp.INFO"
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -26,13 +24,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
 
         //GameManager.createGame("Kenneth")
 
         //GameManager.joinGame("John", "3t3lc")
 
-        //GameManager.updateGame("3t3lc", listOf(listOf(0,0,0), listOf(0,"X",0), listOf(0,0,0)))
+        //GameManager.updateGame("3t3lc", mutableListOf(mutableListOf(0,0,0), mutableListOf(0,"X",0), mutableListOf(0,0,0)))
 
         //GameManager.pollGame("3t3lc")
 

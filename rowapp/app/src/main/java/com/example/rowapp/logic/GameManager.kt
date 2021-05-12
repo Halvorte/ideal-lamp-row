@@ -9,13 +9,14 @@ import com.example.rowapp.ui.GameActivity
 import com.example.rowapp.ui.MainActivity
 import com.google.android.material.internal.ContextUtils.getActivity
 
+const val EXTRA_MESSAGE = "com.example.rowapp.MESSAGE"
 
 object GameManager {
     var players:MutableList<String>? = null
     var state:GameState? = null
     var gameId:String? = null
 
-    val StartingGameState: GameState = listOf(listOf(0, 0, 0), listOf(0, 0, 0), listOf(0, 0, 0))
+    private val StartingGameState: GameState = mutableListOf(mutableListOf(0, 0, 0), mutableListOf(0, 0, 0), mutableListOf(0, 0, 0))
 
     fun createGame(player: String){
         GameService.createGame(player, StartingGameState) { game: Game?, err: Int? ->
@@ -28,23 +29,23 @@ object GameManager {
 
                 // Start Game Activity
                 val intent = Intent(context, GameActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra(EXTRA_MESSAGE, gameId)
                 context.startActivity(intent)
             }
         }
     }
 
 
-    fun joinGame(player: String, gameId: String){
-        GameService.joinGame(player, gameId) { game: Game?, err: Int? ->
+    fun joinGame(player: String, game_Id: String){
+        GameService.joinGame(player, game_Id) { game: Game?, err: Int? ->
             if (err != null){
                 //print(err)
 
             } else {
-                //print(err)
+                gameId = game?.gameId
                 // Start new activity with the game
                 val intent = Intent(context, GameActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra(EXTRA_MESSAGE, gameId)
                 context.startActivity(intent)
 
             }
@@ -68,6 +69,8 @@ object GameManager {
         GameService.pollGame(gameId){ game: Game?, err: Int? ->
             if (err != null){
                 print(err)
+                players = game?.players
+                state = game?.state
 
             } else {
                 print(err)
