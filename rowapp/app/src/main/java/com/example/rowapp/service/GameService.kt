@@ -22,7 +22,9 @@ object GameService {
     // use a queue for performing requests.
     private val requestQueue: RequestQueue = Volley.newRequestQueue(context)
 
-    private var currentGameId: String? = null
+    var currentGameId: String? = null
+
+    var joinGameId: String? = null
 
     private enum class APIEndpoints(val url: String) {
         CREATE_GAME(
@@ -37,7 +39,7 @@ object GameService {
                 context.getString(R.string.protocol),
                 context.getString(R.string.domain),
                 context.getString(R.string.base_path),
-                context.getString(R.string.join_game_path).format(currentGameId)
+                context.getString(R.string.join_game_path).format(joinGameId)
             )
         ),
         POLL_GAME(
@@ -90,17 +92,21 @@ object GameService {
 
     fun joinGame(playerId: String, gameId: String, callback: GameServiceCallback) {
 
-        currentGameId = gameId
+        currentGameId = gameId.toString()
+
+        joinGameId = gameId.toString()
 
         //var url = "/Game/$currentGameId/join"
         var url = APIEndpoints.JOIN_GAME.url
+
+        var url2 = "https://generic-game-service.herokuapp.com/Game/$gameId/join"
 
 
         val requestData = JSONObject()
         requestData.put("player", playerId)
         requestData.put("gameId", gameId)
 
-        val request = object : JsonObjectRequest(Request.Method.POST, url, requestData,
+        val request = object : JsonObjectRequest(Request.Method.POST, url2, requestData,
             {
                 // Success game joined.
                 val game = Gson().fromJson(it.toString(0), Game::class.java)
@@ -128,6 +134,7 @@ object GameService {
         var players: List<String>
 
         var url = APIEndpoints.UPDATE_GAME.url
+        var url3 = "https://generic-game-service.herokuapp.com/Game/$gameId/update"
 
         val requestData = JSONObject()
         requestData.put("gameId", gameId)
@@ -161,11 +168,12 @@ object GameService {
         currentGameId = gameId
 
         var url = APIEndpoints.POLL_GAME.url
+        var url4 = "https://generic-game-service.herokuapp.com/Game/$gameId/poll"
 
         val requestData = JSONObject()
         requestData.put("gameId", gameId)
 
-        val request = object : JsonObjectRequest(Request.Method.GET, url, requestData,
+        val request = object : JsonObjectRequest(Request.Method.GET, url4, requestData,
             {
                 // Success game polled.
                 val game = Gson().fromJson(it.toString(0), Game::class.java)

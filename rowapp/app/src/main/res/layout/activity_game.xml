@@ -39,17 +39,18 @@
             android:text="Reset" />
 
     </RelativeLayout>
-    
+
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_weight="1">
-        
+        app:layout_constraintTop_toTopOf="parent">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,25 +60,25 @@
                 android:id="@+id/button_00"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:text=""
-                android:layout_margin="4dp"/>
+                android:text="" />
 
             <Button
                 android:id="@+id/button_01"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:text=""
-                android:layout_margin="4dp"/>
+                android:text="" />
 
             <Button
                 android:id="@+id/button_02"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:text=""
-                android:layout_margin="4dp"/>
+                android:text="" />
 
         </LinearLayout>
 
@@ -90,25 +91,25 @@
                 android:id="@+id/button_10"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:text=""
-                android:layout_margin="4dp"/>
+                android:text="" />
 
             <Button
                 android:id="@+id/button_11"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:text=""
-                android:layout_margin="4dp"/>
+                android:text="" />
 
             <Button
                 android:id="@+id/button_12"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:text=""
-                android:layout_margin="4dp"/>
+                android:text="" />
 
         </LinearLayout>
 
@@ -118,30 +119,43 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/button_20"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:text=""
-                android:layout_margin="4dp"/>
+                android:text="" />
 
             <Button
                 android:id="@+id/button_21"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:text=""
-                android:layout_margin="4dp"/>
+                android:text="" />
 
             <Button
                 android:id="@+id/button_22"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:text=""
-                android:layout_margin="4dp"/>
+                android:text="" />
 
         </LinearLayout>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/symbolBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:text="X"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.861" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
