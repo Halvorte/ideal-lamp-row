@@ -6,7 +6,7 @@ This application is a school assignment. With this application you can create a 
 This application is a tic tac toe app using a custom API provided by the teacher. The application communicates with the API. You can create multiplayer games and join multiplayer games. When a new game is created it does a post request to the api which returns a game with a gameId. When you join a game with a gameId, it does a another post request and gets the game in return. The games poll every 5 seconds to get updates and check if the other player in the game has don their turn. When a player puts a piece down, it does another post request and updates the game state. When a player gets three in a row it says player <name> won.
 
 Faults with the app/ to improve:
-- It is not possible to create a game, press the back button and join another. It will crash after some time. If you wa
+- It is not possible to create a game, press the back button and join another. It will crash after some time. If you want to create a game and then join it you need to create it, stop the virtual device, and join a game using that gameId.
 - Need to implement point system for when a player gets tree in a row.
 - No win conditions. Need to make it says to restart if no one won the game.
 - stability and ui
