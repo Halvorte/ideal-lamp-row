@@ -29,14 +29,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.imageView.setImageResource(R.mipmap.logo)
 
-        //GameManager.createGame("Kenneth")
-
-        //GameManager.joinGame("John", "3t3lc")
-
-        //GameManager.updateGame("3t3lc", mutableListOf(mutableListOf(0,0,0), mutableListOf(0,"X",0), mutableListOf(0,0,0)))
-
-        //GameManager.pollGame("o0fxt")
-
         // Function for new game dialog box
         //localGameDialogbox()
         newGameDialogbox()
