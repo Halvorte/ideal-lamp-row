@@ -14,6 +14,8 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
 import kotlin.concurrent.fixedRateTimer
+import kotlin.concurrent.timer
+import kotlin.properties.Delegates
 
 class GameActivity : AppCompatActivity() {
 
@@ -34,6 +36,10 @@ class GameActivity : AppCompatActivity() {
 
     private var twoPlayers:Boolean = false
 
+    private var symbol: Boolean = true
+
+    private var timerStop by Delegates.notNull<Boolean>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +57,8 @@ class GameActivity : AppCompatActivity() {
         // Set the title to the gameId
         supportActionBar?.title = "Game id: $gameId"
 
+        timerStop = false
+
         // Set player one name
         players = GameManager.players
         binding.textViewP1.text = "P1:"+players?.get(0)
@@ -60,7 +68,6 @@ class GameActivity : AppCompatActivity() {
 
         // Back button in actionbar
         val actionbar = supportActionBar
-        //actionbar.title("gameId")
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -69,6 +76,8 @@ class GameActivity : AppCompatActivity() {
             resetBtn()
         }
 
+        //symbol button
+        binding.symbolBtn.setOnClickListener { symBtn() }
 
         // Buutons onClick listeners
         binding.button00.setOnClickListener { btn00Action() }
@@ -88,27 +97,83 @@ class GameActivity : AppCompatActivity() {
             runOnUiThread {
                 GameManager.pollGame(gameId)
                 twoPlayers = GameManager.twoPlayers
-                if (twoPlayers){
+                if (GameManager.players?.size == 2){ //twoPlayers
                     players = GameManager.players
 
-                    var en = players?.get(0)
-                    binding.textViewP1.text = "P1:$en"
-                    var to = players?.get(1)
-                    binding.textViewP2.text = "P2:$to"
+                    if (players?.size == 2){
+                        var en = players?.get(0)
+                        binding.textViewP1.text = "P1:$en"
+                        var to = players?.get(1)
+                        binding.textViewP2.text = "P2:$to"
+                    }
 
                     if (currentGameState != rstGameState){
                         currentGameState = GameManager.state!!
                     }
-
-
                     updateLayout()
+                    checkXWin()
+                    checkOwin()
                 }else{
                     Toast.makeText(this@GameActivity, "Waiting for second player", Toast.LENGTH_SHORT).show()
                 }
             }
+            if (timerStop == true){
+                this.cancel()
+            }
         }
 
     }
+
+    private fun checkOwin() {
+        if (currentGameState[0][0] == "O" && currentGameState[0][1] == "O" && currentGameState[0][2] == "O"){
+            Toast.makeText(this@GameActivity, players?.get(1)+"Wins", Toast.LENGTH_SHORT).show()
+        }else if (currentGameState[1][0] == "O" && currentGameState[1][1] == "O" && currentGameState[1][2] == "O"){
+            Toast.makeText(this@GameActivity, players?.get(1)+"Wins", Toast.LENGTH_SHORT).show()
+        }else if (currentGameState[2][0] == "O" && currentGameState[2][1] == "O" && currentGameState[2][2] == "O"){
+            Toast.makeText(this@GameActivity, players?.get(1)+"Wins", Toast.LENGTH_SHORT).show()
+        }else if (currentGameState[0][0] == "O" && currentGameState[1][0] == "O" && currentGameState[2][0] == "O"){
+            Toast.makeText(this@GameActivity, players?.get(1)+"Wins", Toast.LENGTH_SHORT).show()
+        }else if (currentGameState[0][1] == "O" && currentGameState[1][1] == "O" && currentGameState[2][1] == "O"){
+            Toast.makeText(this@GameActivity, players?.get(1)+"Wins", Toast.LENGTH_SHORT).show()
+        }else if (currentGameState[0][2] == "O" && currentGameState[1][2] == "O" && currentGameState[2][2] == "O"){
+            Toast.makeText(this@GameActivity, players?.get(1)+"Wins", Toast.LENGTH_SHORT).show()
+        }else if (currentGameState[0][0] == "O" && currentGameState[1][1] == "O" && currentGameState[2][2] == "O"){
+            Toast.makeText(this@GameActivity, players?.get(1)+"Wins", Toast.LENGTH_SHORT).show()
+        }else if (currentGameState[0][2] == "O" && currentGameState[1][1] == "O" && currentGameState[2][0] == "O"){
+            Toast.makeText(this@GameActivity, players?.get(1)+"Wins", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun checkXWin() {
+        if (currentGameState[0][0] == "X" && currentGameState[0][1] == "X" && currentGameState[0][2] == "X"){
+            Toast.makeText(this@GameActivity, players?.get(0)+"Wins", Toast.LENGTH_SHORT).show()
+        }else if (currentGameState[1][0] == "X" && currentGameState[1][1] == "X" && currentGameState[1][2] == "X"){
+            Toast.makeText(this@GameActivity, players?.get(0)+"Wins", Toast.LENGTH_SHORT).show()
+        }else if (currentGameState[2][0] == "X" && currentGameState[2][1] == "X" && currentGameState[2][2] == "X"){
+            Toast.makeText(this@GameActivity, players?.get(0)+"Wins", Toast.LENGTH_SHORT).show()
+        }else if (currentGameState[0][0] == "X" && currentGameState[1][0] == "X" && currentGameState[2][0] == "X"){
+            Toast.makeText(this@GameActivity, players?.get(0)+"Wins", Toast.LENGTH_SHORT).show()
+        }else if (currentGameState[0][1] == "X" && currentGameState[1][1] == "X" && currentGameState[2][1] == "X"){
+            Toast.makeText(this@GameActivity, players?.get(0)+"Wins", Toast.LENGTH_SHORT).show()
+        }else if (currentGameState[0][2] == "X" && currentGameState[1][2] == "X" && currentGameState[2][2] == "X"){
+            Toast.makeText(this@GameActivity, players?.get(0)+"Wins", Toast.LENGTH_SHORT).show()
+        }else if (currentGameState[0][0] == "X" && currentGameState[1][1] == "X" && currentGameState[2][2] == "X"){
+            Toast.makeText(this@GameActivity, players?.get(0)+"Wins", Toast.LENGTH_SHORT).show()
+        }else if (currentGameState[0][2] == "X" && currentGameState[1][1] == "X" && currentGameState[2][0] == "X"){
+            Toast.makeText(this@GameActivity, players?.get(0)+"Wins", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    // function to stop the activity with the back button
+    override fun onSupportNavigateUp(): Boolean {
+        timerStop = true
+        GameManager.twoPlayers = false
+        twoPlayers = false
+        onBackPressed()
+        finish()
+        return true
+    }
+
 
     // Update the buttons text according to polled game state
     private fun updateLayout(){
@@ -154,69 +219,122 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
+    // function for choosing symbol.
+    private fun symBtn(){
+        symbol = symbol.not()
+        if (symbol){
+            binding.symbolBtn.text = "X"
+        }else{binding.symbolBtn.text = "O"}
+    }
+
 
     private fun btn00Action() {
         if (twoPlayers){
-            binding.button00.text = "X"
-            currentGameState[0][0] = "X"
+            if (symbol){
+                binding.button00.text = "X"
+                currentGameState[0][0] = "X"
+            }else{
+                binding.button00.text = "O"
+                currentGameState[0][0] = "O"
+            }
             GameManager.updateGame(gameId, currentGameState)
         }
     }
     private fun btn01Action() {
         if (twoPlayers){
-            binding.button01.text = "X"
-            currentGameState[0][1] = "X"
+            if (symbol){
+                binding.button01.text = "X"
+                currentGameState[0][1] = "X"
+            }else{
+                binding.button01.text = "O"
+                currentGameState[0][1] = "O"
+            }
             GameManager.updateGame(gameId, currentGameState)
         }
     }
     private fun btn02Action() {
         if (twoPlayers){
-            binding.button02.text = "X"
-            currentGameState[0][2] = "X"
+            if (symbol){
+                binding.button02.text = "X"
+                currentGameState[0][2] = "X"
+            }else{
+                binding.button02.text = "O"
+                currentGameState[0][2] = "O"
+            }
             GameManager.updateGame(gameId, currentGameState)
         }
     }
 
     private fun btn10Action() {
         if (twoPlayers){
-            binding.button10.text = "X"
-            currentGameState[1][0] = "X"
+            if (symbol){
+                binding.button10.text = "X"
+                currentGameState[1][0] = "X"
+            }else{
+                binding.button10.text = "O"
+                currentGameState[1][0] = "O"
+            }
             GameManager.updateGame(gameId, currentGameState)
         }
     }
     private fun btn11Action() {
         if (twoPlayers){
-            binding.button11.text = "X"
-            currentGameState[1][1] = "X"
+            if (symbol){
+                binding.button11.text = "X"
+                currentGameState[1][1] = "X"
+            }else{
+                binding.button11.text = "O"
+                currentGameState[1][1] = "O"
+            }
             GameManager.updateGame(gameId, currentGameState)
         }
     }
     private fun btn12Action() {
         if (twoPlayers){
-            binding.button12.text = "X"
-            currentGameState[1][2] = "X"
+            if (symbol){
+                binding.button12.text = "X"
+                currentGameState[1][2] = "X"
+            }else{
+                binding.button12.text = "O"
+                currentGameState[1][2] = "O"
+            }
             GameManager.updateGame(gameId, currentGameState)
         }
     }
 
     private fun btn20Action() {
         if (twoPlayers){
-            binding.button20.text = "X"
-            currentGameState[2][0] = "X"
+            if (symbol){
+                binding.button20.text = "X"
+                currentGameState[2][0] = "X"
+            }else{
+                binding.button20.text = "O"
+                currentGameState[2][0] = "O"
+            }
             GameManager.updateGame(gameId, currentGameState)
         }
     }
     private fun btn21Action() {
         if (twoPlayers){
-            binding.button21.text = "X"
-            currentGameState[2][1] = "X"
+            if (symbol){
+                binding.button21.text = "X"
+                currentGameState[2][1] = "X"
+            }else{
+                binding.button21.text = "O"
+                currentGameState[2][1] = "O"
+            }
             GameManager.updateGame(gameId, currentGameState)
         }
     }
     private fun btn22Action() {
         if (twoPlayers){
-            binding.button22.text = "X"
-            currentGameState[2][2] = "X"
+            if (symbol){
+                binding.button22.text = "X"
+                currentGameState[2][2] = "X"
+            }else{
+                binding.button22.text = "O"
+                currentGameState[2][2] = "O"
+            }
             GameManager.updateGame(gameId, currentGameState)
         }
     }

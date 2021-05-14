@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    private lateinit var localGameButton: Button
     private lateinit var newGameButton: Button
     private lateinit var joinGameButton: Button
 
@@ -25,6 +26,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.imageView.setImageResource(R.mipmap.logo)
 
         //GameManager.createGame("Kenneth")
 
@@ -35,9 +38,41 @@ class MainActivity : AppCompatActivity() {
         //GameManager.pollGame("o0fxt")
 
         // Function for new game dialog box
+        //localGameDialogbox()
         newGameDialogbox()
         joinGameDialogbox()
     }
+
+    /*
+    private fun localGameDialogbox() {
+        localGameButton = findViewById<Button>(R.id.localGameBtn)
+        localGameButton.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            val inflater = layoutInflater
+            val dialogLayout = inflater.inflate(R.layout.local_game_dialogbox, null)
+            val editPlayer1 = dialogLayout.findViewById<EditText>(R.id.dialogbox_local_p1)
+            val editPlayer2 = dialogLayout.findViewById<EditText>(R.id.dialogbox_local_p2)
+
+            with(builder) {
+                setTitle("Enter name of players")
+                setPositiveButton("OK") { dialog, which ->
+                    // What happens when player enters name and creates game
+                    val player1 = editPlayer1.text.toString()
+                    val player2 = editPlayer2.text.toString()
+
+                    //GameManager.createGame(player, gameId)
+
+                }
+                setNegativeButton("Cancel") { dialog, which ->
+                    Log.d("Main", "Negative button clicked")
+                }
+                setView(dialogLayout)
+                show()
+            }
+        }
+    }
+
+     */
 
     private fun newGameDialogbox() {
         newGameButton = findViewById<Button>(R.id.newGameButton)
@@ -79,8 +114,8 @@ class MainActivity : AppCompatActivity() {
                 setPositiveButton("OK") { dialog, which ->
                     // What happens when player enters name and creates game
                     val player = editPlayer.text.toString()
-                    val gameId = editId.text.toString()
-                    GameManager.joinGame(player, gameId)
+                    val game_Id = editId.text.toString()
+                    GameManager.joinGame(player, game_Id)
 
                 }
                 setNegativeButton("Cancel") { dialog, which ->

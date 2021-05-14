@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">rowapp</string>
+    <string name="app_name">Tic Tac Toe</string>
 
     <string name="protocol">https://</string>
     <string name="domain">generic-game-service.herokuapp.com</string>
@@ -10,6 +10,7 @@
     <string name="update_game_path">/%1s/update</string>
     <string name="game_service_key">OzvIa676yG</string>
 
-    <string name="create_game_btn">Create new game</string>
-    <string name="join_game_btn">Join game</string>
+    <string name="create_game_btn">New multiplayer game</string>
+    <string name="join_game_btn">Join multiplayer game</string>
+    <string name="local_game_btn">New local game</string>
 </resources>
